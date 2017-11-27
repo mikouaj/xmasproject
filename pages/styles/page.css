@@ -1,0 +1,227 @@
+body {
+  background-image:url('../images/background_tile_darker2.png');
+}
+
+#page {
+    width: 90%;
+    height:1060px;
+    margin: 2% auto 2% auto;
+    background-color: #B01600;
+    overflow:hidden;
+    filter: alpha(opacity=80);
+    opacity: 0.8; 
+}
+
+#topbar {
+    background-image:url('../images/top.png');
+    height: 91px;
+    width: 100%;
+}
+
+#leftbar {
+    width: 92px;
+    height: 1000px;
+    background-image:url('../images/left.png');
+    position: relative;
+    top: -60px;
+}
+
+#rightbar {
+    width: 93px;
+    height: 1000px;
+    background-image:url('../images/right.png');
+    position: relative;
+    top: -60px;
+}
+
+#bottombar {
+   height: 91px;
+   width: 100%;
+   top: -120px;
+   background-image:url('../images/bottom.png');
+   position: relative;
+}
+
+#title {
+    display: table;
+    margin: 0 auto;
+}
+
+#title img {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+#header {
+    margin: 5% 5% auto 5%;
+    overflow: hidden;
+}
+
+#header p {
+    margin: 0px 0px 0px 0px;
+}
+
+#pagecontent {
+    border: 0px solid;
+    margin: 3% 5% auto 5%;
+}
+
+#logincontent {
+    display: table;
+    margin: 50px auto 0px auto;
+    border:1px solid;    
+}
+
+#logincontent p {
+    text-align: center;
+    margin: 10px 10px 5px 10px;
+}
+
+#logincontent table {
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#logincontent table td {
+    padding: 5px 5px 5px 5px;
+    text-align: center; 
+}
+
+#mainmenu table {
+    vertical-align: middle;
+    margin: 0 auto;
+}
+
+#mainmenu td {
+    padding: 0px 10px 10px 0px;
+}
+
+#navpath {
+    margin-bottom: 10px;
+}
+
+#navpath p, #navpath a  {
+    display: inline;
+}
+
+#userlistbox {
+    
+}
+
+#usertable {
+    font-size: 12pt;
+}
+
+#usertable table {
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border: #FFFCD3 1px solid;
+}
+
+#usertable th {
+    font-weight: bold;
+    padding: 5px 5px 5px 5px;
+}
+
+#usertable td {
+    padding: 5px 5px 5px 5px;
+    border-top: 1px solid;
+}
+
+#usertable tr:not(:first-child):hover {
+    background-color: #C47300;
+}
+
+.myTable {
+    font-size: 12pt;
+}
+
+.myTable table {
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border: #FFFCD3 1px solid;
+}
+
+.myTable th {
+    font-weight: bold;
+    padding: 5px 5px 5px 5px;
+}
+
+.myTable td {
+    padding: 5px 5px 5px 5px;
+    border-top: 1px solid;
+}
+
+.myTable tr:not(:first-child):hover {
+    background-color: #C47300;
+}
+
+.spacer {
+    background-image:url('../images/spacer3.png');
+    height: 25px;
+    width:100%;
+    clear:both;
+    margin-top: 30px;
+}
+
+.left {
+    float: left;
+}
+
+.center {
+    float:none;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+   position: relative;
+   clear: both;
+}
+
+.pageFont {
+    font: normal normal 14pt verdana;
+    /* color: #D3BC5F; */
+    color: #FFFCD3;
+}
+
+.pageFont a {
+    color: #D3BC5F;
+    text-decoration: underline;
+    font-size: 12pt;
+}
+
+.pageFont input {
+    font-size: 12pt;
+    color: #000000;
+}
+
+.error {
+    text-decoration: underline;
+}
+
+.dottedBox {
+    border: #FFFCD3 1px dotted;
+    margin-bottom: 20px;
+}
+
+.dottedBox h1 {
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 5px 0px 5px 5px;
+}
+
+.dottedBox p {
+    margin: 5px 0px 5px 5px;
+}
+
+.dialog {
+    display: none;
+}
