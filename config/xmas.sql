@@ -26,6 +26,7 @@ CREATE TABLE presents (
     present VARCHAR(255) NOT NULL,
     description VARCHAR(500),
     link VARCHAR(255),
+    reservedBy username VARCHAR(20),
     PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET = utf8;
 CREATE INDEX presents_username_idx on presents(username);
