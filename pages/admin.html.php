@@ -104,6 +104,9 @@
     }
     function addUser() {
         var passhash = CryptoJS.MD5($('#new_password').val());
+        if(!$('#new_lottery').is(':checked')) {
+          $('#new_lottery').val(0);
+        }
         $.post("index.php?admin&a=addUser", {
             login: $('#new_login').val(),
             password: encodeURIComponent(passhash),
