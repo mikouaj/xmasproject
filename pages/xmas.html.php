@@ -1,6 +1,22 @@
 <?php include 'pages/header.html.php'; ?>
 <div id="pagecontent" class="pageFont">
     <div id="mainmenu">
+      <?php
+        $childrenUsers = $userModel->getChildren();
+        if(!empty($childrenUsers)) {
+      ?>
+      <table>
+        <tr>
+        <?php foreach($childrenUsers as $childUser) { ?>
+          <td style="text-align:center">
+            <img src="pages/images/candystick.png" alt="candystick"><br>
+            <a href="index.php?presents&user=<?php print($childUser['username']);?>"><?php print($childUser['name']);?></a>
+          </td>
+        <?php }?>
+        </tr>
+      </table>
+      <?php } ?>
+
         <table>
             <?php
                 $hasLottery = $this->get('hasLottery');
@@ -43,7 +59,7 @@
 </div>
 <div id="dialog-random" class="dialog" title="Losowanie">
     <p>Uwaga zaczynam losować osobę!</p>
-    <p>Pamietaj że po losowaniu nie ma zmian :-)</p> 
+    <p>Pamietaj że po losowaniu nie ma zmian :-)</p>
 </div>
 <div id="dialog-randomAck" class="dialog" title="Losowanie">
     <p>Losowanie przebiegło pomyślnie!</p>
@@ -63,12 +79,12 @@
                     $( this ).dialog("close");
                 }
             }
-        }); 
+        });
     }
     function randomUser() {
         $.get("index.php?lottery&a=random", function( data ) {
             var errorcontent = $('#errorcontent', $.parseHTML(data));
-            if (typeof(errorcontent.html()) === 'undefined') {   
+            if (typeof(errorcontent.html()) === 'undefined') {
                 $("#dialog-randomAck").dialog({
                         resizable: false,
                         modal: true,
@@ -80,12 +96,12 @@
                         },
                         close: function() {
                             location.reload();
-                        }   
+                        }
                 });
             } else {
                 document.write(data);
-            }     
-        });   
+            }
+        });
     }
 </script>
 <?php include 'pages/footer.html.php'; ?>

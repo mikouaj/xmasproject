@@ -11,7 +11,7 @@ class UserModel extends Model
             return false;
         }
     }
-    
+
     public function verify($username,$password) {
         try {
             $sth = $this->pdo->prepare('SELECT password from users where username=:user');
@@ -26,7 +26,7 @@ class UserModel extends Model
         if($result['password']===md5($password)) return true;
         else return false;
     }
-    
+
     public function setupSession($username) {
         $sth = $this->pdo->prepare('SELECT username,name,surname,level,lottery from users where username=:user');
         $sth->bindValue(':user', $username, PDO::PARAM_STR);
@@ -38,11 +38,11 @@ class UserModel extends Model
         $_SESSION['user_level'] = $result['level'];
         $_SESSION['lottery'] = $result['lottery'];
     }
-    
+
     public function destroySession() {
         session_destroy();
     }
-    
+
     public function getUserName() {
         if($this->isLoggedin()) {
             return $_SESSION['user_name'];
@@ -50,7 +50,7 @@ class UserModel extends Model
             return false;
         }
     }
-    
+
     public function hasSantaAccess() {
         if(!$this->isLoggedin()) {
             return false;
@@ -62,14 +62,30 @@ class UserModel extends Model
             }
         }
     }
-    
+
     public function get() {
         $sth = $this->pdo->prepare('SELECT username,name,surname,level,lottery from users');
         $sth->execute();
-        $result = $sth->fetchAll();   
-        return $result;        
+        $result = $sth->fetchAll();
+        return $result;
     }
-    
+
+    public function getUser($username) {
+        $sth = $this->pdo->prepare('SELECT username,name,surname,level,lottery from users where username=:username');
+        $sth->bindValue(':username',$username,PDO::PARAM_STR);
+        $sth->execute();
+        $result = $sth->fetch();
+        return $result;
+    }
+
+    public function getChildren() {
+      $sth = $this->pdo->prepare('SELECT username,name from users where level=:level');
+      $sth->bindValue(':level',3,PDO::PARAM_INT);
+      $sth->execute();
+      $result = $sth->fetchAll();
+      return $result;
+    }
+
     public function addUser($level,$login,$password,$name,$surname,$lottery) {
         $sql = "insert into users values(:username,:password,:name,:surname,:level,:lottery)";
         $sth = $this->pdo->prepare($sql);
@@ -81,14 +97,14 @@ class UserModel extends Model
         $sth->bindValue(':lottery',$lottery,PDO::PARAM_INT);
         $sth->execute();
     }
-    
+
     public function delUser($username) {
         $sql = "delete from users where username=:username";
         $sth = $this->pdo->prepare($sql);
         $sth->bindValue(':username',$username,PDO::PARAM_STR);
         $sth->execute();
     }
-    
+
     public function hasLotteryAccess() {
         if(!$this->isLoggedin()) {
             return false;
@@ -100,7 +116,7 @@ class UserModel extends Model
             }
         }
     }
-    
+
     public function getCurrentUsername() {
         if($this->isLoggedin()) {
             return $_SESSION['user_login'];
