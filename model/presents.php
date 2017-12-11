@@ -12,6 +12,14 @@ class PresentsModel extends Model
         return $result;
     }
 
+    public function getById($id) {
+      $sth = $this->pdo->prepare('SELECT * from presents where id=:id');
+      $sth->bindValue(':id', $id, PDO::PARAM_INT);
+      $sth->execute();
+      $result = $sth->fetch();
+      return $result;
+    }
+
     public function add($username,$name,$description,$link) {
         if(!empty($link)) {
             $sth = $this->pdo->prepare('insert into presents(username,present,description,link) values(:username,:name,:description,:link)');
@@ -38,5 +46,18 @@ class PresentsModel extends Model
         $sth = $this->pdo->prepare($sql);
         $sth->bindValue(':id',$id,PDO::PARAM_INT);
         $sth->execute();
+    }
+
+    public function setReservation($id,$username) {
+      $sth = $this->pdo->prepare('UPDATE presents SET reservedBy=:username where id=:id');
+      $sth->bindValue(':username', $username, PDO::PARAM_STR);
+      $sth->bindValue(':id', $name, PDO::PARAM_INT);
+      $sth->execute();
+    }
+
+    public function clearReservation($id) {
+      $sth = $this->pdo->prepare('UPDATE presents SET reservedBy=NULL where id=:id');
+      $sth->bindValue(':id', $name, PDO::PARAM_INT);
+      $sth->execute();
     }
 }

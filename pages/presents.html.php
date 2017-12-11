@@ -35,13 +35,16 @@
     </form>
 </div>
 <div id="dialog-addPresentAck" class="dialog" title="Dodawanie prezentu">
-    <p>Prezent został dodany</p> 
+    <p>Prezent został dodany</p>
 </div>
 <div id="dialog-delPresent" class="dialog" title="Usuwanie prezentu">
-    <p>Czy na pewno chcesz usunąć prezent?</p> 
+    <p>Czy na pewno chcesz usunąć prezent?</p>
 </div>
 <div id="dialog-delPresentAck" class="dialog" title="Usuwanie prezentu">
-    <p>Prezent został usunięty</p> 
+    <p>Prezent został usunięty</p>
+</div>
+<div id="dialog-reservePresentAck" class="dialog" title="Rezerwacja prezentu">
+    <p>Rezerwacja prezentu została zaktualizowana</p>
 </div>
 <script>
     function addPresentClick() {
@@ -58,7 +61,7 @@
                 close: function() {
                     $('#addPresentForm')[0].reset();
                     $( this ).dialog("close");
-                }   
+                }
         });
     }
     function addPresent() {
@@ -82,12 +85,12 @@
                         },
                         close: function() {
                             $( this ).dialog("close");
-                        }   
+                        }
                 });
             } else {
                 document.write(data);
             }
-        });    
+        });
     }
     function delPresentClick(id) {
         $("#dialog-delPresent").dialog({
@@ -102,13 +105,13 @@
                     "Anuluj": function() {
                         $( this ).dialog("close");
                     }
-                }   
+                }
         });
     }
     function delPresent(id) {
         $.get("index.php?presents&a=delete&id="+encodeURIComponent(id), function( data ) {
             var errorcontent = $('#errorcontent', $.parseHTML(data));
-            if (typeof(errorcontent.html()) === 'undefined') {   
+            if (typeof(errorcontent.html()) === 'undefined') {
                 $('#presentsTable').load('index.php?presents&table');
                 $("#dialog-delPresentAck").dialog({
                         resizable: false,
@@ -121,12 +124,34 @@
                         },
                         close: function() {
                             $( this ).dialog("close");
-                        }   
+                        }
                 });
             } else {
                 document.write(data);
-            }     
-        });   
+            }
+        });
+    }
+    function toggleReservationClick(id) {
+        $.get("index.php?presents&a=togglereservation&id="+encodeURIComponent(id), function( data ) {
+            var errorcontent = $('#errorcontent', $.parseHTML(data));
+            if (typeof(errorcontent.html()) === 'undefined') {
+                $("#dialog-reservePresentAck").dialog({
+                        resizable: false,
+                        modal: true,
+                        autoOpen: true,
+                        buttons: {
+                            "Ok": function() {
+                                $( this ).dialog("close");
+                            }
+                        },
+                        close: function() {
+                            $( this ).dialog("close");
+                        }
+                });
+            } else {
+                document.write(data);
+            }
+        });
     }
 </script>
 <?php include 'pages/footer.html.php'; ?>

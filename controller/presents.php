@@ -3,7 +3,7 @@
 include_once 'controller/controller.php';
 
 class PresentsController extends Controller
-{    
+{
     public function process() {
         $input_a = filter_input(INPUT_GET,'a');
         if (isset($input_a)) {
@@ -13,6 +13,9 @@ class PresentsController extends Controller
                     break;
                 case 'delete':
                     $this->delete();
+                    break;
+                case 'togglereservation':
+                    $this->toggleReservation();
                     break;
                 default:
                     $this->defaultAction();
@@ -24,7 +27,7 @@ class PresentsController extends Controller
     public function defaultAction() {
         $this->show();
     }
-    
+
     public function show() {
         $view = $this->loadView('presents');
         $username = filter_input(INPUT_GET,'user');
@@ -37,7 +40,7 @@ class PresentsController extends Controller
             $view->show($onlyTable);
         }
     }
-    
+
     public function add() {
          $userModel = $this->loadModel('user');
          $presentsModel = $this->loadModel('presents');
@@ -59,7 +62,7 @@ class PresentsController extends Controller
             $view->exceptionPage();
          }
     }
-    
+
     public function delete() {
          $userModel = $this->loadModel('user');
          $presentsModel = $this->loadModel('presents');
@@ -80,5 +83,41 @@ class PresentsController extends Controller
                  $view->accessDeniedPage();
              }
          }
+    }
+
+    public function toggleReservation() {
+      $id = filter_input(INPUT_GET,'id');
+      $presentsModel = $this->loadModel('presents');
+      $userModel = $this->loadModel('user');
+
+      if(is_numeric($id)) {
+        try {
+            $present = $presentsModel->getById($id);
+            $presentOwner = $userModel->getUser($present['username']);
+            $currentUsername = $userModel->getCurrentUsername();
+        } catch (Exception $ex) {
+           $view = $this->loadView('error');
+           $view->set('exception', $ex);
+           $view->exceptionPage();
+           return;
+        }
+        if($presentOwner['level']==3 && (empty($present['reservedBy']) || $present['reservedBy']==$currentUsername)) {
+          try {
+            if(empty($present['reservedBy'])) {
+              $presentsModel->setReservation($present['id'],$currentUsername);
+            } else {
+              $presentsModel->clearReservation($present['id']);
+            }
+          } catch (Exception $ex) {
+             $view = $this->loadView('error');
+             $view->set('exception', $ex);
+             $view->exceptionPage();
+             return;
+           }
+        } else {
+          $view = $this->loadView('error');
+          $view->accessDeniedPage();
+        }
+      }
     }
 }
