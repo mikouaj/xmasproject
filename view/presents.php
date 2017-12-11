@@ -30,9 +30,13 @@ class PresentsView extends View
         $usermodel = $this->loadModel('user');
         $lotterymodel = $this->loadModel('lottery');
         $userData = $usermodel->getUser($username);
-        $selectedUserData = $lotterymodel->getSelectedUsername($usermodel->getCurrentUsername());
+        $this->set('currentUsername',$usermodel->getCurrentUsername());
+        $selectedUserData = $lotterymodel->getSelectedUsername($this->get('currentUsername'));
         if(!empty($userData) && ($selectedUserData['username'] == $username || $userData['level']==3)) {
             $this->set('isEditable',false);
+            if($userData['level']==3) {
+              $this->set('isReservationEnabled',true);
+            }
             $this->set('title',"Lista prezentów o których marzy ".$userData['name']);
             $this->set('emptyTitle',"Niestety ".$userData['name']." nie dodał(a) jeszcze prezentów");
             try {

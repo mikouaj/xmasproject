@@ -15,6 +15,7 @@
         <?php }?>
         </tr>
       </table>
+      <p>&nbsp</p>
       <?php } ?>
 
         <table>
