@@ -50,14 +50,14 @@ class PresentsModel extends Model
 
     public function setReservation($id,$username) {
       $sth = $this->pdo->prepare('UPDATE presents SET reservedBy=:username where id=:id');
+      $sth->bindValue(':id', $id, PDO::PARAM_INT);
       $sth->bindValue(':username', $username, PDO::PARAM_STR);
-      $sth->bindValue(':id', $name, PDO::PARAM_INT);
       $sth->execute();
     }
 
     public function clearReservation($id) {
       $sth = $this->pdo->prepare('UPDATE presents SET reservedBy=NULL where id=:id');
-      $sth->bindValue(':id', $name, PDO::PARAM_INT);
+      $sth->bindValue(':id', $id, PDO::PARAM_INT);
       $sth->execute();
     }
 }

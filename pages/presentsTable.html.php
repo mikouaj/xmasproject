@@ -19,7 +19,7 @@ if(empty($presents)) {
     </tr>
     <?php
     foreach($presents as $present) {
-      if(!empty($present['reservedBy']) && $present['reservedBy'] != $currentUsername) { ?>
+      if(!empty($present['reservedBy'])) { ?>
         <tr style="text-decoration: line-through;" title="Prezent zarezerwowany">
       <?php } else { ?>
         <tr>
@@ -37,9 +37,9 @@ if(empty($presents)) {
             <?php } ?>
             <?php if($isReservationEnabled && $present['username'] != $currentUsername) {
               if(empty($present['reservedBy'])) { ?>
-                <a href="javascript:void(0);" class="pageFont" onclick="toggleReservationClick(<?php print($present['id']);?>)"><img src="pages/images/accept.png" alt="accept" title="Rezerwuj prezent"></a>
+                <a href="javascript:void(0);" class="pageFont" onclick="toggleReservationClick(<?php print($present['id']);?>,'<?php print($present['username']);?>')"><img src="pages/images/accept.png" alt="accept" title="Rezerwuj prezent"></a>
               <?php } elseif($present['reservedBy']==$currentUsername) { ?>
-                <a href="javascript:void(0);" class="pageFont" onclick="toggleReservationClick(<?php print($present['id']);?>)"><img src="pages/images/arrow_undo.png" alt="arrow_undo" title="Usuń rezerwację"></a>
+                <a href="javascript:void(0);" class="pageFont" onclick="toggleReservationClick(<?php print($present['id']);?>,'<?php print($present['username']);?>')"><img src="pages/images/arrow_undo.png" alt="arrow_undo" title="Usuń rezerwację"></a>
               <?php }
             } ?>
         </td>

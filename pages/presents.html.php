@@ -131,10 +131,11 @@
             }
         });
     }
-    function toggleReservationClick(id) {
+    function toggleReservationClick(id,owner) {
         $.get("index.php?presents&a=togglereservation&id="+encodeURIComponent(id), function( data ) {
             var errorcontent = $('#errorcontent', $.parseHTML(data));
             if (typeof(errorcontent.html()) === 'undefined') {
+                $('#presentsTable').load("index.php?presents&table&user="+encodeURIComponent(owner));
                 $("#dialog-reservePresentAck").dialog({
                         resizable: false,
                         modal: true,
